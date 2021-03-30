@@ -16,8 +16,11 @@ class Post extends Model
 
     protected static function boot(){
         parent::boot();
+
         static::creating(function($model) {
-            $model->user_id = Auth::id();
+            if (Auth::id() != null) {
+                $model->user_id = Auth::id();
+            }
         });
         static::updating(function ($model) {
             $model->user_id = Auth::id();
